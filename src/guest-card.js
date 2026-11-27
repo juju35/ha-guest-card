@@ -175,8 +175,11 @@ class GuestCard extends RcCard {
   // A time of day, in the 12 or 24 hour clock of the user's profile (else the language's).
   _time(t) {
     const f = this._hass.locale?.time_format;
+    const h12 = f === "12" || f === "24" ? { hour12: f === "12" } : {};
     try {
-      return new Intl.DateTimeFormat(this._lang(), { hour: "2-digit", minute: "2-digit", ...(f === "12" || f === "24" ? { hour12: f === "12" } : {}) }).format(new Date(t));
+      // 12-hour clocks drop the leading zero (7:20 PM), 24-hour ones keep it (07:20), like Home Assistant.
+      const am = new Intl.DateTimeFormat(this._lang(), { hour: "numeric", ...h12 }).resolvedOptions().hour12;
+      return new Intl.DateTimeFormat(this._lang(), { hour: am ? "numeric" : "2-digit", minute: "2-digit", ...h12 }).format(new Date(t));
     } catch {
       return new Date(t).toTimeString().slice(0, 5);
     }

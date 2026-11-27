@@ -205,3 +205,10 @@ test("French", async () => {
   assert.match(card.shadowRoot.innerHTML, /Jusqu&#39;à 23:30/);
   assert.match(card.shadowRoot.innerHTML, /Terminer le mode invité/);
 });
+
+test("12-hour clocks drop the leading zero, 24-hour clocks keep it", async () => {
+  const twelve = await make("guest-card", { entity: "input_boolean.guest_mode", end: "07:05" }, { ...makeHass(), locale: { language: "en", time_format: "12" } });
+  assert.match(twelve.shadowRoot.innerHTML, /<div class="subt">Until 7:05 AM<\/div>/);
+  const day = await make("guest-card", { entity: "input_boolean.guest_mode", end: "07:05" });
+  assert.match(day.shadowRoot.innerHTML, /<div class="subt">Until 07:05<\/div>/);
+});
