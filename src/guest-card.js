@@ -91,55 +91,15 @@ const gsPlacePill = (head, row, ground) => {
 };
 
 // ── Card ─────────────────────────────────────────────────────────────────────
-class GuestCard extends HTMLElement {
+class GuestCard extends RcCard {
   static tag = "guest-card";
   static i18n = GS_I18N;
   static defaults = { illustration: true, illustration_theme: "auto", show_subtitle: true, show_when_off: false, animations: true, security: "WPA", emergency: "112" };
-
-  static getConfigElement() {
-    // biome-ignore lint/complexity/noThisInStatic: each card opens its own editor.
-    return document.createElement(`${this.tag}-editor`);
-  }
 
   // A guest mode helper of the home when there is one (an input_boolean named guest…), and a network to show.
   static getStubConfig(hass) {
     const entity = Object.keys(hass?.states ?? {}).find((id) => /^input_boolean\..*(guest|invit|gast)/.test(id));
     return { ...(entity ? { entity } : {}), ssid: "Guests", password: "welcome-home" };
-  }
-
-  setConfig(config) {
-    this._config = { ...this.constructor.defaults, ...config };
-    // show_title: the header's title, hidden by the stylesheet
-    this.toggleAttribute?.("hide-title", config.show_title === false);
-    if (!this.shadowRoot) this._attach();
-    this._sig = null;
-    this._render();
-  }
-
-  // The shadow root, and no rewrite of the card between a press anywhere in it and the end of the click: Home
-  // Assistant updates the card several times a second, and a rewrite under the pointer replaces the element pressed.
-  // The pending update is rendered once released.
-  _attach() {
-    const root = this.attachShadow({ mode: "open" });
-    this._onPressEnd = () => {
-      window.removeEventListener("pointerup", this._onPressEnd, true);
-      window.removeEventListener("pointercancel", this._onPressEnd, true);
-      // After the click, which comes in the same task as the release.
-      setTimeout(() => this._released(), 0);
-    };
-    root.addEventListener("pointerdown", (ev) => {
-      if (ev.button !== 0) return;
-      this._pressing = true;
-      window.addEventListener("pointerup", this._onPressEnd, true);
-      window.addEventListener("pointercancel", this._onPressEnd, true);
-    });
-  }
-
-  _released() {
-    this._pressing = false;
-    if (!this._deferred) return;
-    this._deferred = false;
-    this._render();
   }
 
   connectedCallback() {
@@ -159,53 +119,19 @@ class GuestCard extends HTMLElement {
   // Left (another dashboard view, a conditional card hidden): the full screen QR code closes, what was revealed is
   // masked again.
   disconnectedCallback() {
+    super.disconnectedCallback();
     clearInterval(this._timer);
     this._timer = undefined;
     this._resize?.disconnect();
     this._fitWidth = undefined;
     if (this._fitFrame) cancelAnimationFrame(this._fitFrame);
-    window.removeEventListener("pointerup", this._onPressEnd, true);
-    window.removeEventListener("pointercancel", this._onPressEnd, true);
-    this._pressing = false;
     this._qrOpen = false;
     this.shadowRoot?.querySelector?.("dialog")?.close?.();
     this._mask();
   }
 
-  set hass(hass) {
-    this._hass = hass;
-    if (this._pressing) this._deferred = true;
-    else this._render();
-  }
-
   getCardSize() {
     return 6;
-  }
-
-  getGridOptions() {
-    return { columns: 12, min_columns: 6, rows: "auto" };
-  }
-
-  _lang() {
-    return rcLang(GS_I18N, this._hass, this._config);
-  }
-
-  _t(key, vars) {
-    return rcT(GS_I18N, this._lang(), key, vars);
-  }
-
-  // Re-render only when something visible changed.
-  _changed(parts) {
-    const sig = JSON.stringify([this._config, this._lang(), parts]);
-    if (sig === this._sig) return false;
-    this._sig = sig;
-    return true;
-  }
-
-  _render() {
-    if (!this._config || !this._hass || !this.shadowRoot) return;
-    this._items = this._collect();
-    this._draw(this._items);
   }
 
   // The calendar's events from now to the end of the evening (midnight, or the end of guest mode when later).
