@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Επαφές (YAML)",
     ed_contacts_helper: "Μια λίστα από { name, phone }",
     ed_show_subtitle: "Εμφάνιση υπότιτλου",
+    ed_show_when_off: "Εμφάνιση λεπτομερειών όταν η λειτουργία επισκέπτη είναι απενεργοποιημένη",
     ed_illustration: "Εικονογραφημένη κεφαλίδα",
     ed_illustration_theme: "Θέμα κεφαλίδας",
     ed_theme_auto: "Αυτόματο (ακολουθεί το θέμα)",

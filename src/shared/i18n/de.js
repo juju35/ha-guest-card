@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakte (YAML)",
     ed_contacts_helper: "Eine Liste von { name, phone }",
     ed_show_subtitle: "Untertitel anzeigen",
+    ed_show_when_off: "Details anzeigen, wenn der Gastmodus aus ist",
     ed_illustration: "Illustrierte Kopfzeile",
     ed_illustration_theme: "Design der Kopfzeile",
     ed_theme_auto: "Automatisch (folgt dem Design)",

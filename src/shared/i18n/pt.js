@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Contactos (YAML)",
     ed_contacts_helper: "Uma lista de { name, phone }",
     ed_show_subtitle: "Mostrar subtítulo",
+    ed_show_when_off: "Mostrar os detalhes com o modo convidado desligado",
     ed_illustration: "Cabeçalho ilustrado",
     ed_illustration_theme: "Tema do cabeçalho",
     ed_theme_auto: "Automático (segue o tema)",

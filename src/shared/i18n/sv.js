@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakter (YAML)",
     ed_contacts_helper: "En lista med { name, phone }",
     ed_show_subtitle: "Visa underrubrik",
+    ed_show_when_off: "Visa detaljer när gästläget är av",
     ed_illustration: "Illustrerad rubrik",
     ed_illustration_theme: "Rubrikens tema",
     ed_theme_auto: "Automatiskt (följer temat)",

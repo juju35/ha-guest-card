@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kapcsolatok (YAML)",
     ed_contacts_helper: "{ name, phone } lista",
     ed_show_subtitle: "Alcím megjelenítése",
+    ed_show_when_off: "Részletek mutatása, ha a vendégmód ki van kapcsolva",
     ed_illustration: "Illusztrált fejléc",
     ed_illustration_theme: "Fejléc témája",
     ed_theme_auto: "Automatikus (követi a témát)",

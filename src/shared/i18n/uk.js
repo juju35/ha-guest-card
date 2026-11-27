@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Контакти (YAML)",
     ed_contacts_helper: "Список { name, phone }",
     ed_show_subtitle: "Показувати підзаголовок",
+    ed_show_when_off: "Показувати подробиці, коли гостьовий режим вимкнено",
     ed_illustration: "Ілюстрований заголовок",
     ed_illustration_theme: "Тема заголовка",
     ed_theme_auto: "Автоматично (за темою)",

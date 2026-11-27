@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Stiki (YAML)",
     ed_contacts_helper: "Seznam { name, phone }",
     ed_show_subtitle: "Prikaži podnaslov",
+    ed_show_when_off: "Prikaži podrobnosti, ko je način za goste izklopljen",
     ed_illustration: "Ilustrirana glava",
     ed_illustration_theme: "Tema glave",
     ed_theme_auto: "Samodejno (sledi temi)",

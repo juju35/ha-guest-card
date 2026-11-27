@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Contacte (YAML)",
     ed_contacts_helper: "O listă de { name, phone }",
     ed_show_subtitle: "Afișează subtitlul",
+    ed_show_when_off: "Afișează detaliile când modul oaspete este oprit",
     ed_illustration: "Antet ilustrat",
     ed_illustration_theme: "Tema antetului",
     ed_theme_auto: "Automat (urmează tema)",

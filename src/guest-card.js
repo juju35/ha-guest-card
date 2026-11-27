@@ -94,7 +94,7 @@ const gsPlacePill = (head, row, ground) => {
 class GuestCard extends HTMLElement {
   static tag = "guest-card";
   static i18n = GS_I18N;
-  static defaults = { illustration: true, illustration_theme: "auto", show_subtitle: true, animations: true, security: "WPA", emergency: "112" };
+  static defaults = { illustration: true, illustration_theme: "auto", show_subtitle: true, show_when_off: false, animations: true, security: "WPA", emergency: "112" };
 
   static getConfigElement() {
     // biome-ignore lint/complexity/noThisInStatic: each card opens its own editor.
@@ -282,6 +282,10 @@ class GuestCard extends HTMLElement {
       ...(c.calendar && this._cal?.id === c.calendar ? gsFromCalendar(this._cal.list, now) : []),
     ].sort((a, b) => (a.minutes ?? 9999) - (b.minutes ?? 9999));
     const contacts = (Array.isArray(c.contacts) ? c.contacts : []).filter((p) => p?.name && p?.phone).map((p) => ({ name: String(p.name), phone: String(p.phone) }));
+    // Guest mode off: only the header and the start button, nothing private on a shared dashboard (show_when_off keeps it all).
+    if (!on && !c.show_when_off) {
+      return { on, state, end, canToggle: !!c.entity && !!mode, closed: true, wifi: null, lock: null, alarm: null, code: null, tonight: [], showTonight: false, contacts: [], emergency: "", name: c.title || this._t("title") };
+    }
     return {
       on,
       state,
@@ -455,7 +459,9 @@ class GuestCard extends HTMLElement {
     const mode = m.canToggle
       ? `<div class="actions"><button class="mode${m.on ? "" : " start"}">${rcEsc(this._t(m.on ? "end_mode" : "start_mode"))}</button></div>`
       : "";
-    const body = `<div class="body">${m.wifi ? this._wifiBlock(m.wifi) : ""}${this._tiles(m)}${this._lists(m)}${mode}</div>`;
+    const content = m.closed ? mode : `${m.wifi ? this._wifiBlock(m.wifi) : ""}${this._tiles(m)}${this._lists(m)}${mode}`;
+    // Closed and nothing to start it with: the card ends on the header's ground bar.
+    const body = content ? `<div class="body">${content}</div>` : "";
     this._paint(m, head + body, "");
   }
 
@@ -676,7 +682,7 @@ const GS_HELPERS = ["title", "entity", "end", "ssid_entity", "password_entity", 
 const GuestCardEditor = rcEditor({
   card: GuestCard,
   helpers: GS_HELPERS,
-  schema: gsSchema(["show_title", "show_subtitle", "illustration", "animations"]),
+  schema: gsSchema(["show_title", "show_subtitle", "show_when_off", "illustration", "animations"]),
 });
 
 rcRegister(GuestCard, GuestCardEditor, "Guest Card", "A guest or babysitter card: the guest Wi-Fi QR code, the door code, the lock and the alarm, the evening and who to call");
@@ -702,7 +708,7 @@ class GuestMiniCard extends rcMini(GuestCard, "guest-mini-card") {
 const GuestMiniCardEditor = rcEditor({
   card: GuestMiniCard,
   helpers: GS_HELPERS,
-  schema: gsSchema(["show_title", "show_subtitle", "illustration", "animations", "zoom"]),
+  schema: gsSchema(["show_title", "show_subtitle", "show_when_off", "illustration", "animations", "zoom"]),
 });
 
 rcRegister(GuestMiniCard, GuestMiniCardEditor, "Guest Mini Card", "Guest mode on two lines: its state and the guest Wi-Fi, whose QR code opens full screen, with a zoom to the full card");

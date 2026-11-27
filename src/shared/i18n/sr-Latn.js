@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakti (YAML)",
     ed_contacts_helper: "Lista { name, phone }",
     ed_show_subtitle: "Prikaži podnaslov",
+    ed_show_when_off: "Prikaži detalje kada je režim za goste isključen",
     ed_illustration: "Ilustrovano zaglavlje",
     ed_illustration_theme: "Tema zaglavlja",
     ed_theme_auto: "Automatski (prati temu)",

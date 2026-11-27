@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakter (YAML)",
     ed_contacts_helper: "En liste med { name, phone }",
     ed_show_subtitle: "Vis undertitel",
+    ed_show_when_off: "Vis detaljer, når gæstetilstand er slået fra",
     ed_illustration: "Illustreret overskrift",
     ed_illustration_theme: "Overskriftens tema",
     ed_theme_auto: "Automatisk (følger temaet)",

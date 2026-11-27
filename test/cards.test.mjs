@@ -131,8 +131,14 @@ test("ending soon, off, and no switch at all", async () => {
   assert.equal(off._items.state, "off");
   assert.match(off.shadowRoot.innerHTML, /<div class="subt">Guest mode is off<\/div>/);
   assert.match(off.shadowRoot.innerHTML, /<button class="mode start">Start guest mode<\/button>/);
+  // Off: the header and the start button only — no QR, network, code, evening or contacts.
+  assert.doesNotMatch(off.shadowRoot.innerHTML, /<dialog|class="qr|class="tile|class="box|class="ct/);
   off._toggleMode();
   assert.deepEqual(json(offHass.calls), [["homeassistant", "turn_on", { entity_id: "input_boolean.guest_mode" }]]);
+  const kept = await make("guest-card", { ...FULL, show_when_off: true }, offHass);
+  assert.match(kept.shadowRoot.innerHTML, /<dialog class="qrd"/, "show_when_off keeps the details");
+  const offMini = await make("guest-mini-card", FULL, offHass);
+  assert.doesNotMatch(offMini.shadowRoot.innerHTML, /<dialog|class="subt net qr/, "the mini card hides the network too");
   const always = await make("guest-card", { ssid: "Guests", security: "nopass" });
   assert.equal(always._items.state, "active");
   assert.doesNotMatch(always.shadowRoot.innerHTML, /class="mode/, "no switch: no button");

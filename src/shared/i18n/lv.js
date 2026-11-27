@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakti (YAML)",
     ed_contacts_helper: "{ name, phone } saraksts",
     ed_show_subtitle: "Rādīt apakšvirsrakstu",
+    ed_show_when_off: "Rādīt informāciju, kad viesu režīms ir izslēgts",
     ed_illustration: "Ilustrēta galvene",
     ed_illustration_theme: "Galvenes motīvs",
     ed_theme_auto: "Automātiski (pēc motīva)",

@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Kontakty (YAML)",
     ed_contacts_helper: "Seznam { name, phone }",
     ed_show_subtitle: "Zobrazit podtitul",
+    ed_show_when_off: "Zobrazit podrobnosti, když je režim hosta vypnutý",
     ed_illustration: "Ilustrovaná hlavička",
     ed_illustration_theme: "Motiv hlavičky",
     ed_theme_auto: "Automaticky (podle motivu)",

@@ -121,6 +121,7 @@ password: welcome-home
 | `title` | string | `Welcome home` | Both: card title |
 | `show_title` | boolean | `true` | Both: show the title |
 | `show_subtitle` | boolean | `true` | Both: until when, or whether guest mode is on (the mini card shows the network instead) |
+| `show_when_off` | boolean | `false` | Both: keep the network, the codes, the evening and the contacts on screen while guest mode is off (by default the card shrinks to its header and the start button, so nothing private stays on a shared dashboard) |
 | `navigation_path` | string | | Both: a tap on the header opens this dashboard path |
 | `entity` | string | | Both: the guest mode switch (`input_boolean` or `switch`); without it, guest mode is always on and there is no button |
 | `end` | string | | Both: when guest mode ends — a time (`HH:MM`, after midnight for the night) or an entity (`input_datetime`, `timestamp` sensor) |
@@ -145,7 +146,7 @@ password: welcome-home
 
 ## Screenshots
 
-| Guest mode on | Ending soon | Guest mode off |
+| Guest mode on | Ending soon | Guest mode off (header and start button only) |
 |---|---|---|
 | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-active.png" alt="Guest mode on" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-ending.png" alt="Ending soon" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-off.png" alt="Guest mode off" width="400"> |
 | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-active-dark.png" alt="Guest mode on, dark" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-ending-dark.png" alt="Ending soon, dark" width="400"> | <img src="https://raw.githubusercontent.com/juju35/ha-guest-card/main/screenshots/gs-off-dark.png" alt="Guest mode off, dark" width="400"> |

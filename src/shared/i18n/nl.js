@@ -68,6 +68,7 @@ export default {
     ed_contacts: "Contacten (YAML)",
     ed_contacts_helper: "Een lijst van { name, phone }",
     ed_show_subtitle: "Ondertitel tonen",
+    ed_show_when_off: "Details tonen als de gastmodus uit staat",
     ed_illustration: "Geïllustreerde koptekst",
     ed_illustration_theme: "Thema van de koptekst",
     ed_theme_auto: "Automatisch (volgt het thema)",
