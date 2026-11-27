@@ -31,7 +31,7 @@ export const setup = (s) => {
   return {
     hass: {
       language: "en",
-      locale: { language: "en", time_format: "24" },
+      locale: { language: "en", time_format: "12" },
       states: {
         "input_boolean.guest_mode": st("input_boolean.guest_mode", v.mode, { friendly_name: "Guest mode" }),
         "lock.front_door": st("lock.front_door", "locked", { friendly_name: "Front door" }),
